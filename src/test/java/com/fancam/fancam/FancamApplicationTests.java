@@ -10,4 +10,9 @@ class FancamApplicationTests {
 	void contextLoads() {
 	}
 
+	@Test
+	void commitTest(){
+		System.out.println("첫 커밋은 성공적?!");
+	}
+
 }
