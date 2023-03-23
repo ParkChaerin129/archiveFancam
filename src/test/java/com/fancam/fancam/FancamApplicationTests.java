@@ -12,7 +12,8 @@ class FancamApplicationTests {
 
 	@Test
 	void commitTest(){
-		System.out.println("첫 커밋은 성공적?!");
+		System.out.println("잘 연결되었나용?");
+		// 한글 테스트
 	}
 
 }
