@@ -1,30 +1,34 @@
 package com.fancam.fancam.admin;
 
+import com.fancam.fancam.model.FancamInfoDto;
+import com.fancam.fancam.model.TagInfoDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
-import javax.sql.DataSource;
-import java.util.Date;
-
-@Repository
+@Component
 public class AdminDao {
 
-/*
-    private JdbcTemplate jdbcTemplate;
+
+    private final FancamRepository fancamRepository;
+    private final TagRepository tagRepository;
 
     @Autowired
-    public void setDataSource(DataSource dataSource){
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    public AdminDao(FancamRepository fancamRepository, TagRepository tagRepository) {
+        this.fancamRepository = fancamRepository;
+        this.tagRepository = tagRepository;
     }
 
-    public Integer createNewFancamToDB(String name, String date,String member,String url){
-        String createUserQuery = "insert into Fancam (name, date, member, fancamUrl VALUES (?,?,?,?)";
-        Object[] createUserParams = new Object[]{name, date,member, url};
-        this.jdbcTemplate.update(createUserQuery, createUserParams);
 
-        String lastInserIdQuery = "select last_insert_id()";
-        return this.jdbcTemplate.queryForObject(lastInserIdQuery,int.class);
-    }*/
+    public Long createNewFancamToDB(FancamInfoDto fancamInfoDto) throws Exception{
+
+        FancamInfoDto save = fancamRepository.save(fancamInfoDto);
+        return save.getFancamIdx();
+
+    }
+
+    public Long createNewTagToDB(TagInfoDto tagInfoDto) throws Exception{
+        TagInfoDto save = tagRepository.save(tagInfoDto);
+        return save.getTagIdx();
+    }
 
 }

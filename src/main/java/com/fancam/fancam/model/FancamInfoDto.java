@@ -18,8 +18,8 @@ public class FancamInfoDto {
     private String date;
     @Column
     private String member;
-    @Column(name = "FancamUrl")
-    private String FancamUrl;
+    @Column
+    private String fancam_url;
     @Column
     private String status;
     //@Column(name="createAt")

@@ -4,6 +4,7 @@ import com.fancam.fancam.model.FancamInfoDto;
 
 public interface AdminService {
 
-    boolean createNewFancam(FancamInfoDto fancamInfoDto);
+    boolean createNewFancam(String name,String date,String member,String url);
+    boolean createNewTag(String tagName);
 
 }

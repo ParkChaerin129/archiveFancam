@@ -1,23 +1,63 @@
 package com.fancam.fancam.admin;
 
 import com.fancam.fancam.model.FancamInfoDto;
+import com.fancam.fancam.model.TagInfoDto;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AdminServiceImpl{ //implements AdminService{
+@Component
+public class AdminServiceImpl implements AdminService{
 
-    AdminDao adminDao = new AdminDao();
-/*
+
+
+    final FancamRepository fancamRepository;
+    final AdminDao adminDao;
+    final TagRepository tagRepository;
+
+    @Autowired
+    public AdminServiceImpl(AdminDao adminDao, FancamRepository fancamRepository,  TagRepository tagRepository) {
+        this.fancamRepository = fancamRepository;
+        this.adminDao = adminDao;
+        this.tagRepository = tagRepository;
+    }
+
     @Override
-    public boolean createNewFancam(FancamInfoDto fancamInfoDto) {
+    public boolean createNewFancam(String name,String date,String member,String url) {
 
-        String name = fancamInfoDto.getName();
-        String date = fancamInfoDto.getDate();
-        String member = fancamInfoDto.getMember();
-        String url = fancamInfoDto.getFancamUrl();
+        FancamInfoDto fancamInfoDto = FancamInfoDto.builder().
+                Name(name).
+                date(date).
+                member(member).
+                fancam_url(url).
+                status("ACTIVE").
+                build();
 
-        Integer id = adminDao.createNewFancamToDB(name,date,member,url);
+
+        try{
+            Long id = adminDao.createNewFancamToDB(fancamInfoDto);
+            System.out.println("id = " + id);
+        }
+        catch(Exception e){
+            System.out.println("e = " + e);
+            return false;
+        }
         return true;
-        //return false;
-    }*/
+    }
+
+    @Override
+    public boolean createNewTag(String tagName) {
+
+        TagInfoDto tagInfoDto = TagInfoDto.builder().tagName(tagName).build();
+
+        try{
+            Long id = adminDao.createNewTagToDB(tagInfoDto);
+            System.out.println("id = " + id);
+        }catch (Exception e){
+            System.out.println("e = " + e);
+            return false;
+        }
+        return true;
+    }
 }
