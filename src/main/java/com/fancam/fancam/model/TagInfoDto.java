@@ -14,6 +14,7 @@ public class TagInfoDto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="tagidx")
     private Long tagIdx;
     @Column
     private String tagName;

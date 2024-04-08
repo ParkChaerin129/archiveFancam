@@ -10,18 +10,22 @@ public class AppConfig {
     @Autowired
     final TagRepository tagRepository;
 
-    public AppConfig(FancamRepository fancamRepository, TagRepository tagRepository) {
+    @Autowired
+    final TaggingRepository taggingRepository;
+
+    public AppConfig(FancamRepository fancamRepository, TagRepository tagRepository, TaggingRepository taggingRepository) {
         this.fancamRepository = fancamRepository;
         this.tagRepository = tagRepository;
+        this.taggingRepository=taggingRepository;
     }
 
 
     public AdminService adminService(){
-        return new AdminServiceImpl(adminDao(), fancamRepository, tagRepository);
+        return new AdminServiceImpl(adminDao(), fancamRepository, tagRepository,taggingRepository);
     }
 
     public AdminDao adminDao(){
-        return new AdminDao(fancamRepository, tagRepository);
+        return new AdminDao(fancamRepository, tagRepository,taggingRepository);
     }
 
 
