@@ -1,6 +1,8 @@
 package com.fancam.fancam;
 
 import com.fancam.fancam.admin.*;
+import com.fancam.fancam.user.UserDao;
+import com.fancam.fancam.user.UserService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -10,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
@@ -28,9 +31,10 @@ public class AutowiredTest {
     //@Autowired
     //TagRepository tagRepository;
 
+    ApplicationContext ac = new AnnotationConfigApplicationContext(AutoAppConfig.class);
     @Test
     void autowiredTest(){
-        ApplicationContext ac = new AnnotationConfigApplicationContext(AutoAppConfig.class);
+
         AdminService bean = ac.getBean(AdminService.class);
         System.out.println("bean = " + bean);
 
@@ -44,5 +48,35 @@ public class AutowiredTest {
 
 
     }
+
+    @Test
+    @Rollback(value = false)
+    void userCreateTest(){
+        //UserService userService = ac.getBean(UserService.class);
+        //userService.createNewUser("아기토끼","한유진","rabbit@zb1","abcd1234");
+    }
+
+    @Test
+    @Rollback(value = false)
+    void folderCreateTest(){
+        UserService userService = ac.getBean(UserService.class);
+        userService.createNewFolder(1L,"멜팅포인트");
+    }
+
+    @Test
+    @Rollback(value = false)
+    void folderingCreateTest(){
+        UserService userService = ac.getBean(UserService.class);
+        userService.createNewFoldering(10L,1L);
+    }
+
+    @Test
+    @Rollback(value = false)
+    void likeCreateTest(){
+        UserService userService = ac.getBean(UserService.class);
+        String s= userService.createNewLike(8L,2L);
+
+    }
+
 
 }

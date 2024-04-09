@@ -1,4 +1,4 @@
-package com.fancam.fancam.model;
+package com.fancam.fancam.model.tag;
 
 import jakarta.persistence.*;
 import lombok.*;

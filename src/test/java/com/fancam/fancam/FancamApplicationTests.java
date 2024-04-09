@@ -1,8 +1,7 @@
 package com.fancam.fancam;
 
 import com.fancam.fancam.admin.*;
-import com.fancam.fancam.model.TagInfoDto;
-import com.fancam.fancam.model.TaggingInfoDto;
+import com.fancam.fancam.model.tag.TagInfoDto;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

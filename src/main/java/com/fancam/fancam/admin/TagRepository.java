@@ -1,8 +1,7 @@
 package com.fancam.fancam.admin;
 
-import com.fancam.fancam.model.TagInfoDto;
+import com.fancam.fancam.model.tag.TagInfoDto;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 

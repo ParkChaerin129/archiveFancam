@@ -1,10 +1,7 @@
 package com.fancam.fancam.admin;
 
 import com.fancam.fancam.model.FancamInfoDto;
-import com.fancam.fancam.model.TagInfoDto;
-import com.fancam.fancam.model.TaggingInfoDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
