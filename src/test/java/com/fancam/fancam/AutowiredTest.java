@@ -74,7 +74,7 @@ public class AutowiredTest {
     @Rollback(value = false)
     void likeCreateTest(){
         UserService userService = ac.getBean(UserService.class);
-        String s= userService.createNewLike(8L,2L);
+        userService.createNewLike(10L,2L);
 
     }
 
