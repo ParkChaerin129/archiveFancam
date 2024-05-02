@@ -3,6 +3,9 @@ package com.fancam.fancam;
 import com.fancam.fancam.admin.*;
 import com.fancam.fancam.user.UserDao;
 import com.fancam.fancam.user.UserService;
+import com.fancam.fancam.user.folder.FolderService;
+import com.fancam.fancam.user.foldering.FolderingService;
+import com.fancam.fancam.user.like.LikeService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -60,21 +63,25 @@ public class AutowiredTest {
     @Rollback(value = false)
     void folderCreateTest(){
         UserService userService = ac.getBean(UserService.class);
-        userService.createNewFolder(1L,"멜팅포인트");
+        FolderService folderService = ac.getBean(FolderService.class);
+        folderService.createNewFolder(1L,"멜팅포인트");
     }
 
     @Test
     @Rollback(value = false)
     void folderingCreateTest(){
         UserService userService = ac.getBean(UserService.class);
-        userService.createNewFoldering(10L,1L);
+        FolderingService folderingService = ac.getBean(FolderingService.class);
+        folderingService.createNewFoldering(10L,1L);
     }
+
 
     @Test
     @Rollback(value = false)
     void likeCreateTest(){
         UserService userService = ac.getBean(UserService.class);
-        userService.createNewLike(10L,2L);
+        LikeService likeService = ac.getBean(LikeService.class);
+        likeService.createNewLike(10L,2L);
 
     }
 

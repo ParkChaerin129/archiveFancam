@@ -1,6 +1,9 @@
 package com.fancam.fancam;
 
 import com.fancam.fancam.admin.*;
+import com.fancam.fancam.admin.FancamRepository;
+import com.fancam.fancam.admin.TagRepository;
+import com.fancam.fancam.admin.TaggingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class AppConfig {

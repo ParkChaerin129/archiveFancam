@@ -1,6 +1,9 @@
 package com.fancam.fancam;
 
 import com.fancam.fancam.admin.*;
+import com.fancam.fancam.admin.FancamRepository;
+import com.fancam.fancam.admin.TagRepository;
+import com.fancam.fancam.admin.TaggingRepository;
 import com.fancam.fancam.model.tag.TagInfoDto;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -30,7 +33,7 @@ class FancamApplicationTests {
 
 
 	@Autowired
-	FancamRepository fancamRepository;
+    FancamRepository fancamRepository;
 
 	@Test
 	@Rollback(value = false)

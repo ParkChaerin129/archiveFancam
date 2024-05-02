@@ -4,12 +4,14 @@ import com.fancam.fancam.model.FancamInfoDto;
 import com.fancam.fancam.model.tag.TagInfoDto;
 import com.fancam.fancam.model.tag.TaggingInfoDto;
 import com.fancam.fancam.model.tag.TaggingInfoDtoId;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
 @Component
+@RequiredArgsConstructor
 public class AdminDao {
 
 
@@ -17,12 +19,6 @@ public class AdminDao {
     private final TagRepository tagRepository;
     private final TaggingRepository taggingRepository;
 
-    @Autowired
-    public AdminDao(FancamRepository fancamRepository, TagRepository tagRepository, TaggingRepository taggingRepository) {
-        this.fancamRepository = fancamRepository;
-        this.tagRepository = tagRepository;
-        this.taggingRepository = taggingRepository;
-    }
 
 
     public Long createNewFancamToDB(FancamInfoDto fancamInfoDto) throws Exception{

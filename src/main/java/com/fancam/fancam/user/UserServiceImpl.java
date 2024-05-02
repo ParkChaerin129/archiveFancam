@@ -27,30 +27,9 @@ public class UserServiceImpl implements UserService{
         return id;
     }
 
-    @Override
-    public Long createNewFolder(Long userIdx, String folderName) {
-        FolderInfoDto folderInfoDto = FolderInfoDto.builder().userIdx(userIdx).folderName(folderName).build();
-        Long id = userDao.createNewFolderToDB(folderInfoDto);
 
-        return id;
-    }
 
-    @Override
-    public void createNewFoldering(Long fancamIdx, Long folderIdx) {
-        FolderingInfoDtoId folderingInfoDtoId = new FolderingInfoDtoId();
-        folderingInfoDtoId.setFancamidx(fancamIdx);
-        folderingInfoDtoId.setFolderidx(folderIdx);
-        FolderingInfoDto folderingInfoDto = FolderingInfoDto.builder().folderingInfoDtoId(folderingInfoDtoId).build();
-        userDao.createNewFolderingToDB(folderingInfoDto);
-    }
 
-    @Override
-    public void createNewLike(Long fancamIdx, Long userIdx) {
-        LikeInfoDtoId likeInfoDtoId = new LikeInfoDtoId();
-        likeInfoDtoId.setUseridx(userIdx);
-        likeInfoDtoId.setFancamidx(fancamIdx);
-        LikeInfoDto likeInfoDto = LikeInfoDto.builder().likeInfoDtoId(likeInfoDtoId).build();
 
-        userDao.createNewLikeToDB(likeInfoDto);
-    }
+
 }
