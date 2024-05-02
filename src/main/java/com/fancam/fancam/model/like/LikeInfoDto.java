@@ -19,5 +19,8 @@ public class LikeInfoDto {
     @EmbeddedId
     private LikeInfoDtoId likeInfoDtoId;
 
+    @Column
+    private String status;
+
 
 }

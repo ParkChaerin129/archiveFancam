@@ -17,8 +17,20 @@ public class LikeServiceImpl implements LikeService{
         LikeInfoDtoId likeInfoDtoId = new LikeInfoDtoId();
         likeInfoDtoId.setUseridx(userIdx);
         likeInfoDtoId.setFancamidx(fancamIdx);
-        LikeInfoDto likeInfoDto = LikeInfoDto.builder().likeInfoDtoId(likeInfoDtoId).build();
+        LikeInfoDto likeInfoDto = LikeInfoDto.builder().likeInfoDtoId(likeInfoDtoId).status("ACTIVE").build();
 
-        likeDao.createNewLikeToDB(likeInfoDto);
+        likeDao.saveLikeToDB(likeInfoDto);
     }
+
+    @Override
+    public void inactiveLike(Long fancamIdx, Long userIdx){
+        LikeInfoDtoId likeInfoDtoId = new LikeInfoDtoId();
+        likeInfoDtoId.setFancamidx(fancamIdx);
+        likeInfoDtoId.setUseridx(userIdx);
+        if(likeDao.isPresentLike(likeInfoDtoId)){
+            LikeInfoDto likeInfoDto = LikeInfoDto.builder().likeInfoDtoId(likeInfoDtoId).status("INACTIVE").build();
+            likeDao.saveLikeToDB(likeInfoDto);
+        }
+    }
+
 }
