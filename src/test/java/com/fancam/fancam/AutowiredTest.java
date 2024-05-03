@@ -1,18 +1,14 @@
 package com.fancam.fancam;
 
 import com.fancam.fancam.admin.*;
-import com.fancam.fancam.user.UserDao;
 import com.fancam.fancam.user.UserService;
 import com.fancam.fancam.user.folder.FolderService;
 import com.fancam.fancam.user.foldering.FolderingService;
 import com.fancam.fancam.user.like.LikeService;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.test.annotation.Rollback;
@@ -61,10 +57,31 @@ public class AutowiredTest {
 
     @Test
     @Rollback(value = false)
+    void inactiveTagTest(){
+        AdminService adminService = ac.getBean(AdminService.class);
+        adminService.inactiveTag(12L);
+    }
+
+    @Test
+    @Rollback(value = false)
+    void inactiveTaggingTest(){
+        AdminService adminService = ac.getBean(AdminService.class);
+        adminService.inactiveTagging(1L,2L);
+    }
+
+    @Test
+    @Rollback(value = false)
     void folderCreateTest(){
         UserService userService = ac.getBean(UserService.class);
         FolderService folderService = ac.getBean(FolderService.class);
         folderService.createNewFolder(1L,"멜팅포인트");
+    }
+
+    @Test
+    @Rollback(value = false)
+    void folderInactiveTest(){
+        FolderService folderService = ac.getBean(FolderService.class);
+        folderService.inactiveFolder(2L);
     }
 
     @Test
@@ -75,6 +92,13 @@ public class AutowiredTest {
         folderingService.createNewFoldering(10L,1L);
     }
 
+    @Test
+    @Rollback(value = false)
+    void folderingInactiveTest(){
+        FolderingService folderingService = ac.getBean(FolderingService.class);
+        folderingService.inactiveFoldering(10L,1L);
+    }
+
 
     @Test
     @Rollback(value = false)
@@ -83,6 +107,20 @@ public class AutowiredTest {
         LikeService likeService = ac.getBean(LikeService.class);
         likeService.createNewLike(10L,2L);
 
+    }
+
+    @Test
+    @Rollback(value = false)
+    void inactiveFancamTest(){
+        AdminService adminService = ac.getBean(AdminService.class);
+        adminService.inactiveFancam(2L);
+    }
+
+    @Test
+    @Rollback(value = false)
+    void inactiveUserTest(){
+        UserService userService = ac.getBean(UserService.class);
+        userService.inactiveUser(1L);
     }
 
 

@@ -13,9 +13,16 @@ public class FolderServiceImpl implements FolderService{
 
     @Override
     public Long createNewFolder(Long userIdx, String folderName) {
-        FolderInfoDto folderInfoDto = FolderInfoDto.builder().userIdx(userIdx).folderName(folderName).build();
-        Long id = folderDao.createNewFolderToDB(folderInfoDto);
+        FolderInfoDto folderInfoDto = FolderInfoDto.builder().userIdx(userIdx).folderName(folderName).status("ACTIVE").build();
+        Long id = folderDao.saveFolderToDB(folderInfoDto);
 
         return id;
+    }
+
+    @Override
+    public Long inactiveFolder(Long folderIdx) {
+        FolderInfoDto folderInfoDto = folderDao.getFolderFromDB(folderIdx);
+        folderInfoDto.setStatus("INACTIVE");
+        return folderDao.saveFolderToDB(folderInfoDto);
     }
 }

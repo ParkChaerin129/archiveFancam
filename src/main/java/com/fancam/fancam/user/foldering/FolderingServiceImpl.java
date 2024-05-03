@@ -16,8 +16,19 @@ public class FolderingServiceImpl implements FolderingService{
         FolderingInfoDtoId folderingInfoDtoId = new FolderingInfoDtoId();
         folderingInfoDtoId.setFancamidx(fancamIdx);
         folderingInfoDtoId.setFolderidx(folderIdx);
-        FolderingInfoDto folderingInfoDto = FolderingInfoDto.builder().folderingInfoDtoId(folderingInfoDtoId).build();
-        folderingDao.createNewFolderingToDB(folderingInfoDto);
+        FolderingInfoDto folderingInfoDto = FolderingInfoDto.builder().folderingInfoDtoId(folderingInfoDtoId).status("ACTIVE").build();
+        folderingDao.saveFolderingToDB(folderingInfoDto);
     }
 
+    @Override
+    public void inactiveFoldering(Long fancamIdx, Long folderIdx) {
+        FolderingInfoDtoId folderingInfoDtoId = new FolderingInfoDtoId();
+        folderingInfoDtoId.setFancamidx(fancamIdx);
+        folderingInfoDtoId.setFolderidx(folderIdx);
+        if(folderingDao.isPresentFoldering(folderingInfoDtoId)){
+            FolderingInfoDto folderingInfoDto = FolderingInfoDto.builder().folderingInfoDtoId(folderingInfoDtoId).status("INACTIVE").build();
+            folderingDao.saveFolderingToDB(folderingInfoDto);
+        }
+
+    }
 }

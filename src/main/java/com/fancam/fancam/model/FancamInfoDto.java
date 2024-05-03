@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Getter
+@Setter
 @ToString
 @Builder
 @AllArgsConstructor
@@ -30,6 +31,6 @@ public class FancamInfoDto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long fancamIdx;
+    private Long fancamidx;
 
 }

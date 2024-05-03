@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Getter
+@Setter
 @ToString
 @Builder
 @AllArgsConstructor
@@ -28,5 +29,8 @@ public class UserInfoDto {
 
     @Column
     private String pwd;
+
+    @Column
+    private String status;
 
 }

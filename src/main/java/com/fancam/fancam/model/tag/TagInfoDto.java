@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Getter
+@Setter
 @ToString
 @Builder
 @AllArgsConstructor
@@ -18,5 +19,7 @@ public class TagInfoDto {
     private Long tagIdx;
     @Column
     private String tagName;
+    @Column
+    private String status;
 
 }

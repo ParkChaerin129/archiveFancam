@@ -1,28 +1,22 @@
 package com.fancam.fancam.admin;
 
 import com.fancam.fancam.model.FancamInfoDto;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.fancam.fancam.model.tag.TagInfoDto;
+import com.fancam.fancam.model.tag.TaggingInfoDto;
+import com.fancam.fancam.model.tag.TaggingInfoDtoId;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
 @Service
+@RequiredArgsConstructor
 public class AdminServiceImpl implements AdminService{
 
 
-
-    final FancamRepository fancamRepository;
     final AdminDao adminDao;
-    final TagRepository tagRepository;
-    final TaggingRepository taggingRepository;
 
-    @Autowired
-    public AdminServiceImpl(AdminDao adminDao, FancamRepository fancamRepository,  TagRepository tagRepository, TaggingRepository taggingRepository) {
-        this.fancamRepository = fancamRepository;
-        this.adminDao = adminDao;
-        this.tagRepository = tagRepository;
-        this.taggingRepository = taggingRepository;
-    }
+
 
     @Override
     public boolean createNewFancam(String name, String date, String member, String url, ArrayList<String> tagNames) {
@@ -38,7 +32,7 @@ public class AdminServiceImpl implements AdminService{
         Long id;
 
         try{
-            id = adminDao.createNewFancamToDB(fancamInfoDto);
+            id = adminDao.saveFancamToDB(fancamInfoDto);
             System.out.println("id = " + id);
         }
         catch(Exception e){
@@ -56,7 +50,7 @@ public class AdminServiceImpl implements AdminService{
         }
 
         try{
-            adminDao.createNewTagging(id,tagIdxs);
+            adminDao.saveTaggingByNewFancam(id,tagIdxs);
         }catch (Exception e){
             System.out.println("e = " + e);
             return false;
@@ -80,4 +74,39 @@ public class AdminServiceImpl implements AdminService{
         }
         return true;
     }*/
+
+    @Override
+    public void inactiveTag(Long tagIdx) {
+        TagInfoDto tagInfoDto = adminDao.getTagFromDB(tagIdx);
+        tagInfoDto.setStatus("INACTIVE");
+        try{
+            adminDao.saveTagToDB(tagInfoDto);
+        }catch (Exception e){
+            System.out.println("e = " + e);
+        }
+    }
+
+    @Override
+    public void inactiveTagging(Long tagIdx, Long fancamIdx) {
+        TaggingInfoDtoId taggingInfoDtoId = new TaggingInfoDtoId();
+        taggingInfoDtoId.setFancamidx(fancamIdx);
+        taggingInfoDtoId.setTagidx(tagIdx);
+        TaggingInfoDto taggingInfoDto = TaggingInfoDto.builder().taggingInfoDtoId(taggingInfoDtoId).status("INACTIVE").build();
+        try{
+            adminDao.saveTagging(taggingInfoDto);
+        }catch (Exception e){
+            System.out.println("e = " + e);
+        }
+    }
+
+    @Override
+    public void inactiveFancam(Long fancamIdx) {
+        FancamInfoDto fancamInfoDto = adminDao.getFancamFromDB(fancamIdx);
+        fancamInfoDto.setStatus("INACTIVE");
+        try{
+            adminDao.saveFancamToDB(fancamInfoDto);
+        }catch (Exception e){
+            System.out.println("e = " + e);
+        }
+    }
 }

@@ -151,7 +151,7 @@ class FancamApplicationTests {
 		System.out.println();
 		System.out.println("----------------------------------");
 
-		adminDao.createNewTagging(2L,result);
+		adminDao.saveTaggingByNewFancam(2L,result);
 	}
 
 }

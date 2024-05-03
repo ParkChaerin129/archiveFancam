@@ -24,7 +24,7 @@ public class AppConfig {
 
 
     public AdminService adminService(){
-        return new AdminServiceImpl(adminDao(), fancamRepository, tagRepository,taggingRepository);
+        return new AdminServiceImpl(adminDao());
     }
 
     public AdminDao adminDao(){

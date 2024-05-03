@@ -5,10 +5,10 @@ import com.fancam.fancam.model.tag.TagInfoDto;
 import com.fancam.fancam.model.tag.TaggingInfoDto;
 import com.fancam.fancam.model.tag.TaggingInfoDtoId;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -21,16 +21,26 @@ public class AdminDao {
 
 
 
-    public Long createNewFancamToDB(FancamInfoDto fancamInfoDto) throws Exception{
+    public Long saveFancamToDB(FancamInfoDto fancamInfoDto) throws Exception{
 
         FancamInfoDto save = fancamRepository.save(fancamInfoDto);
-        return save.getFancamIdx();
+        return save.getFancamidx();
 
     }
 
-    public Long createNewTagToDB(TagInfoDto tagInfoDto) throws Exception{
+    public FancamInfoDto getFancamFromDB(Long fancamIdx){
+        Optional<FancamInfoDto> fancamInfoDto = fancamRepository.findById(fancamIdx);
+        return fancamInfoDto.get();
+    }
+
+    public Long saveTagToDB(TagInfoDto tagInfoDto) throws Exception{
         TagInfoDto save = tagRepository.save(tagInfoDto);
         return save.getTagIdx();
+    }
+
+    public TagInfoDto getTagFromDB(Long tagIdx){
+        Optional<TagInfoDto> tagInfoDto = tagRepository.findByTagIdx(tagIdx);
+        return tagInfoDto.get();
     }
 
     public ArrayList<Long> getTagNameIdxArray(ArrayList<String> tagNames) throws Exception {
@@ -42,8 +52,8 @@ public class AdminDao {
             Long id;
             TagInfoDto tagInfoDto = tagRepository.findByTagName(tagName).orElse(null);
             if(tagInfoDto==null){
-                TagInfoDto newTagInfoDto = TagInfoDto.builder().tagName(tagName).build();
-                id=createNewTagToDB(newTagInfoDto);
+                TagInfoDto newTagInfoDto = TagInfoDto.builder().tagName(tagName).status("ACTIVE").build();
+                id= saveTagToDB(newTagInfoDto);
             }
             else{
                 id=tagInfoDto.getTagIdx();
@@ -54,16 +64,21 @@ public class AdminDao {
         return TagNameIdxArray;
     }
 
-    public void createNewTagging(Long fancamIdx,ArrayList<Long> tagIdxs){
+    public void saveTaggingByNewFancam(Long fancamIdx, ArrayList<Long> tagIdxs){
 
         for(Long tagIdx: tagIdxs){
             TaggingInfoDtoId taggingInfoDtoId = new TaggingInfoDtoId();
             taggingInfoDtoId.setFancamidx(fancamIdx);
             taggingInfoDtoId.setTagidx(tagIdx);
 
-            TaggingInfoDto taggingInfoDto = TaggingInfoDto.builder().taggingInfoDtoId(taggingInfoDtoId).build();
+            TaggingInfoDto taggingInfoDto = TaggingInfoDto.builder().taggingInfoDtoId(taggingInfoDtoId).status("ACTIVE").build();
             taggingRepository.save(taggingInfoDto);
         }
     }
+
+    public void saveTagging(TaggingInfoDto taggingInfoDto){
+        taggingRepository.save(taggingInfoDto);
+    }
+
 
 }

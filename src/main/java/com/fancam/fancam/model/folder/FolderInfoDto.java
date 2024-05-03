@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Getter
+@Setter
 @ToString
 @Builder
 @AllArgsConstructor
@@ -22,5 +23,8 @@ public class FolderInfoDto {
 
     @Column(name="foldername")
     private String folderName;
+
+    @Column
+    private String status;
 
 }

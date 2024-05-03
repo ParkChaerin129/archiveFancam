@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Getter
+@Setter
 @ToString
 @Builder
 @AllArgsConstructor
@@ -14,6 +15,9 @@ public class TaggingInfoDto {
 
     @EmbeddedId
     private TaggingInfoDtoId taggingInfoDtoId;
+
+    @Column
+    private String status;
 /*
     @Column(name = "fancamidx")
     private Long fancamIdx;
