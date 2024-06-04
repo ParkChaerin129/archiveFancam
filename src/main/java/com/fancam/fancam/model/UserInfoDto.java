@@ -22,6 +22,9 @@ public class UserInfoDto {
     private String nickname;
 
     @Column
+    private String grade;
+
+    @Column
     private String name;
 
     @Column

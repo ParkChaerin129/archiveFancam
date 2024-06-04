@@ -51,8 +51,8 @@ public class AutowiredTest {
     @Test
     @Rollback(value = false)
     void userCreateTest(){
-        //UserService userService = ac.getBean(UserService.class);
-        //userService.createNewUser("아기토끼","한유진","rabbit@zb1","abcd1234");
+        UserService userService = ac.getBean(UserService.class);
+        userService.createNewUser("쿼카","박채린","quokka@zb1","abcd1234","admin");
     }
 
     @Test

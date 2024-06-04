@@ -15,9 +15,9 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Long createNewUser(String nickname, String name, String email, String pwd) {
+    public Long createNewUser(String nickname, String name, String email, String pwd,String grade) {
         UserInfoDto userInfoDto = UserInfoDto.builder().nickname(nickname).name(name)
-                .email(email).pwd(pwd).build();
+                .email(email).pwd(pwd).grade(grade).status("ACTIVE").build();
         Long id = userDao.saveUserToDB(userInfoDto);
         return id;
     }
