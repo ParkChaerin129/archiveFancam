@@ -27,7 +27,15 @@ public final class UserDao {
         return userInfoDto.get();
     }
 
+    public boolean isPresentUserByEmail(String email){
+        Optional<UserInfoDto> userInfoDto = userRepository.findByEmail(email);
+        return userInfoDto.isPresent();
+    }
 
+    public Optional<UserInfoDto> getUserByEmail(String email){
+        Optional<UserInfoDto> userInfoDto = userRepository.findByEmail(email);
+        return userInfoDto;
+    }
 
 
 
