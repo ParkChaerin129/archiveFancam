@@ -3,6 +3,7 @@ package com.fancam.fancam;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -13,9 +14,10 @@ public class JwtUtil {
     @Value("${secret.key}")
     private String secret;
 
-    public String generateToken(String username) {
+    public String generateToken(String username, UserDetails userDetails) {
         return Jwts.builder()
                 .setSubject(username)
+                .claim("authorities", userDetails.getAuthorities())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 86400000)) // 1일 후 만료
                 .signWith(SignatureAlgorithm.HS256, secret)
