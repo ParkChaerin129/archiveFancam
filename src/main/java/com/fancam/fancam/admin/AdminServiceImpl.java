@@ -21,6 +21,8 @@ public class AdminServiceImpl implements AdminService{
     @Override
     public boolean createNewFancam(String name, String date, String member, String url, ArrayList<String> tagNames) {
 
+
+
         FancamInfoDto fancamInfoDto = FancamInfoDto.builder().
                 Name(name).
                 date(date).
