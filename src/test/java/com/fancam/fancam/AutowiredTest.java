@@ -57,14 +57,14 @@ public class AutowiredTest {
 
     @Test
     @Rollback(value = false)
-    void inactiveTagTest(){
+    void inactiveTagTest() throws Exception{
         AdminService adminService = ac.getBean(AdminService.class);
         adminService.inactiveTag(12L);
     }
 
     @Test
     @Rollback(value = false)
-    void inactiveTaggingTest(){
+    void inactiveTaggingTest() throws Exception{
         AdminService adminService = ac.getBean(AdminService.class);
         adminService.inactiveTagging(1L,2L);
     }
@@ -111,7 +111,7 @@ public class AutowiredTest {
 
     @Test
     @Rollback(value = false)
-    void inactiveFancamTest(){
+    void inactiveFancamTest() throws Exception{
         AdminService adminService = ac.getBean(AdminService.class);
         adminService.inactiveFancam(2L);
     }

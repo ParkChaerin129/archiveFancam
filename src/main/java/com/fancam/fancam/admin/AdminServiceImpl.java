@@ -19,7 +19,7 @@ public class AdminServiceImpl implements AdminService{
 
 
     @Override
-    public boolean createNewFancam(String name, String date, String member, String url, ArrayList<String> tagNames) {
+    public boolean createNewFancam(String name, String date, String member, String url, ArrayList<String> tagNames){
 
 
 
@@ -78,18 +78,19 @@ public class AdminServiceImpl implements AdminService{
     }*/
 
     @Override
-    public void inactiveTag(Long tagIdx) {
+    public void inactiveTag(Long tagIdx) throws Exception{
         TagInfoDto tagInfoDto = adminDao.getTagFromDB(tagIdx);
         tagInfoDto.setStatus("INACTIVE");
         try{
             adminDao.saveTagToDB(tagInfoDto);
         }catch (Exception e){
             System.out.println("e = " + e);
+            throw e;
         }
     }
 
     @Override
-    public void inactiveTagging(Long tagIdx, Long fancamIdx) {
+    public void inactiveTagging(Long tagIdx, Long fancamIdx) throws Exception {
         TaggingInfoDtoId taggingInfoDtoId = new TaggingInfoDtoId();
         taggingInfoDtoId.setFancamidx(fancamIdx);
         taggingInfoDtoId.setTagidx(tagIdx);
@@ -98,17 +99,19 @@ public class AdminServiceImpl implements AdminService{
             adminDao.saveTagging(taggingInfoDto);
         }catch (Exception e){
             System.out.println("e = " + e);
+            throw e;
         }
     }
 
     @Override
-    public void inactiveFancam(Long fancamIdx) {
+    public void inactiveFancam(Long fancamIdx) throws Exception{
         FancamInfoDto fancamInfoDto = adminDao.getFancamFromDB(fancamIdx);
         fancamInfoDto.setStatus("INACTIVE");
         try{
             adminDao.saveFancamToDB(fancamInfoDto);
         }catch (Exception e){
             System.out.println("e = " + e);
+            throw e;
         }
     }
 }
