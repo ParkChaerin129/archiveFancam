@@ -1,4 +1,4 @@
-package com.fancam.fancam.admin;
+package com.fancam.fancam.search;
 
 import com.fancam.fancam.model.tag.TagInfoDto;
 import org.springframework.data.jpa.repository.JpaRepository;

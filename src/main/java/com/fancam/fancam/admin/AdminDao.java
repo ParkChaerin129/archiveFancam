@@ -4,6 +4,9 @@ import com.fancam.fancam.model.FancamInfoDto;
 import com.fancam.fancam.model.tag.TagInfoDto;
 import com.fancam.fancam.model.tag.TaggingInfoDto;
 import com.fancam.fancam.model.tag.TaggingInfoDtoId;
+import com.fancam.fancam.search.FancamRepository;
+import com.fancam.fancam.search.TagRepository;
+import com.fancam.fancam.search.TaggingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
