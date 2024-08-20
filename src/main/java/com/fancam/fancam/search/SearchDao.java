@@ -63,4 +63,44 @@ public class SearchDao {
         return searchDtoList;
     }
 
+    public SearchDto searchFancamFromDBByFancamIdx(Long fancamidx){
+        SearchDto searchDto = new SearchDto();
+        SearchDto.Fancam fancam = new SearchDto.Fancam();
+
+        List<Object[]> results = fancamRepository.fancamInfo(fancamidx);
+
+        if(results.isEmpty()){
+            return null;
+        }
+
+        Object[] result = results.get(0);
+
+        FancamInfoDto f = (FancamInfoDto) result[0];
+        fancam.setName(f.getName());
+        fancam.setDate(f.getDate());
+        fancam.setStatus(f.getStatus());
+        fancam.setMember(f.getMember());
+        fancam.setFancamidx(f.getFancamidx());
+        fancam.setFancam_url(f.getFancam_url());
+        searchDto.setFancam(fancam);
+
+        // 좋아요 수
+        Long l = (Long) result[1];
+        SearchDto.Likes likes = new SearchDto.Likes();
+        likes.setLikeCount(l);
+        searchDto.setLikes(likes);
+
+        List<String> tagNames = fancamRepository.findTagNamesByPostId(fancamidx);
+
+        ArrayList<SearchDto.Tag> tags = new ArrayList<>();
+        for(String tagName:tagNames){
+            SearchDto.Tag tag = new SearchDto.Tag();
+            tag.setTagNames(tagName);
+            tags.add(tag);
+        }
+        searchDto.setTags(tags);
+
+        return searchDto;
+
+    }
 }

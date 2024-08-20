@@ -7,4 +7,6 @@ import java.util.List;
 public interface SearchService {
 
     List<SearchDto> allFancamInfo();
+    SearchDto findFancamInfoById(String id);
+
 }

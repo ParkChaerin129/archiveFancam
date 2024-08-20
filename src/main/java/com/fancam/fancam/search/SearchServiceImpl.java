@@ -16,4 +16,11 @@ public class SearchServiceImpl implements SearchService{
     public List<SearchDto> allFancamInfo() {
         return searchDao.searchAllFancamFromDB();
     }
+
+    @Override
+    public SearchDto findFancamInfoById(String id) {
+
+        Long fancamIdx = Long.valueOf(id);
+        return searchDao.searchFancamFromDBByFancamIdx(fancamIdx);
+    }
 }
