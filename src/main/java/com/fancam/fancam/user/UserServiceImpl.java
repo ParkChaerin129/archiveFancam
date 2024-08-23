@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -56,13 +57,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public Long getUserIdByUserName(String email) {
+        UserInfoDto user=userDao.getUserByEmail(email).get();
+        return user.getUserIdx();
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
         UserInfoDto user = userDao.getUserByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         String role = "ROLE_"+user.getGrade().toUpperCase();
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPwd(), List.of(()-> role));
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPwd(),List.of(()-> role));
     }
 
 }

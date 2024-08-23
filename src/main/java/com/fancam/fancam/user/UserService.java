@@ -9,6 +9,7 @@ public interface UserService {
 
     Long registerUser(String nickname,String name,String email,String pwd, String grade);
 
+    Long getUserIdByUserName(String userName);
 
 
 }
