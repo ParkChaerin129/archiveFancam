@@ -7,6 +7,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -79,7 +80,35 @@ public class UserController {
             likeService.createNewLike(fancamIdx,userIdx);
             return "success";
         }
-        catch (Exception e){return "False";}
+        catch (Exception e){return "false";}
+    }
+
+    @GetMapping("/like/{fancamIdx}")
+    public String isLike(@RequestHeader("Authorization") String token,@PathVariable Long fancamIdx){
+
+        try{
+            Long userIdx = getUserIdByToken(token);
+            if(likeService.isLiked(fancamIdx,userIdx)){
+                return "true";
+            }else{
+                return "false";
+            }
+        }
+        catch (Exception e){
+            return "fail";
+        }
+
+    }
+
+    @PatchMapping("like/{fancamIdx}")
+    public String cancelLike(@RequestHeader("Authorization") String token,@PathVariable Long fancamIdx){
+
+        try{
+            Long userIdx = getUserIdByToken(token);
+            likeService.inactiveLike(fancamIdx,userIdx);
+            return "success";
+        }
+        catch (Exception e){return "false";}
     }
 
     private Long getUserIdByToken(String token) {

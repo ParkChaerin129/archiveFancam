@@ -33,4 +33,13 @@ public class LikeServiceImpl implements LikeService{
         }
     }
 
+    @Override
+    public boolean isLiked(Long fancamIdx, Long userIdx) {
+        LikeInfoDtoId likeInfoDtoId = new LikeInfoDtoId();
+        likeInfoDtoId.setFancamidx(fancamIdx);
+        likeInfoDtoId.setUseridx(userIdx);
+        return likeDao.isLiked(likeInfoDtoId);
+    }
+
+
 }

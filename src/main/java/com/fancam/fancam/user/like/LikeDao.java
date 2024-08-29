@@ -5,6 +5,7 @@ import com.fancam.fancam.model.like.LikeInfoDtoId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Component
@@ -22,6 +23,16 @@ public class LikeDao {
         Optional<LikeInfoDto> optionalLikeInfoDto = likeRepository.findById(likeInfoDtoId);
         return optionalLikeInfoDto.isPresent();
     }
+
+    public boolean isLiked(LikeInfoDtoId likeInfoDtoId){
+        Optional<LikeInfoDto> optionalLikeInfoDto = likeRepository.findById(likeInfoDtoId);
+        if(optionalLikeInfoDto.isPresent() && Objects.equals(optionalLikeInfoDto.get().getStatus(), "ACTIVE")){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 
 
 }
