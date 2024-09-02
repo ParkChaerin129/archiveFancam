@@ -2,6 +2,9 @@ package com.fancam.fancam.user;
 
 import com.fancam.fancam.JwtUtil;
 import com.fancam.fancam.model.UserInfoDto;
+import com.fancam.fancam.model.folder.FolderInfoDto;
+import com.fancam.fancam.user.folder.FolderService;
+import com.fancam.fancam.user.foldering.FolderingService;
 import com.fancam.fancam.user.like.LikeService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -20,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -32,6 +36,12 @@ public class UserController {
 
     @Autowired
     private LikeService likeService;
+
+    @Autowired
+    private FolderService folderService;
+
+    @Autowired
+    private FolderingService folderingService;
 
     @Autowired
     private JwtUtil jwtUtil;
@@ -100,7 +110,7 @@ public class UserController {
 
     }
 
-    @PatchMapping("like/{fancamIdx}")
+    @PatchMapping("/like/{fancamIdx}")
     public String cancelLike(@RequestHeader("Authorization") String token,@PathVariable Long fancamIdx){
 
         try{
@@ -110,6 +120,32 @@ public class UserController {
         }
         catch (Exception e){return "false";}
     }
+
+    @PostMapping("/folder")
+    public String newFolder(@RequestHeader("Authorization") String token,@RequestBody Map<String,Object> requestBody){
+
+        Long userIdx = getUserIdByToken(token);
+        String folderName = requestBody.get("folderName").toString();
+        folderService.createNewFolder(userIdx,folderName);
+        return "success";
+    }
+
+    @GetMapping("/folder")
+    public List<FolderInfoDto> getFolder(@RequestHeader("Authorization") String token){
+        try{
+            Long userIdx = getUserIdByToken(token);
+            return folderService.getFolderList(userIdx);
+        }
+        catch (Exception e){return List.of();}
+    }
+
+    @PostMapping("/folder/{fancamIdx}")
+    public String addFancamToFolder(@PathVariable Long fancamIdx,@RequestBody Map<String,Object> requestBody){
+        Long folderIdx = Long.valueOf(requestBody.get("folderIdx").toString());
+        folderingService.createNewFoldering(fancamIdx,folderIdx);
+        return "success";
+    }
+
 
     private Long getUserIdByToken(String token) {
         try {

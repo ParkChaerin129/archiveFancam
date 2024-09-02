@@ -4,6 +4,8 @@ import com.fancam.fancam.model.folder.FolderInfoDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -24,5 +26,10 @@ public class FolderServiceImpl implements FolderService{
         FolderInfoDto folderInfoDto = folderDao.getFolderFromDB(folderIdx);
         folderInfoDto.setStatus("INACTIVE");
         return folderDao.saveFolderToDB(folderInfoDto);
+    }
+
+    @Override
+    public List<FolderInfoDto> getFolderList(Long userIdx) {
+        return folderDao.getFolderListFromDB(userIdx);
     }
 }

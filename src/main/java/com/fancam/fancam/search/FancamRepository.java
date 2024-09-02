@@ -12,10 +12,10 @@ import java.util.List;
 
 public interface FancamRepository extends JpaRepository<FancamInfoDto,Long> {
 
-    @Query("SELECT f, COUNT(l) FROM FancamInfoDto f LEFT JOIN LikeInfoDto l ON f.fancamidx = l.likeInfoDtoId.fancamidx WHERE f.status='ACTIVE' GROUP BY f.fancamidx ORDER BY COUNT(l.likeInfoDtoId.fancamidx) DESC")
+    @Query("SELECT f, SUM(CASE WHEN l.status = 'ACTIVE' THEN 1 ELSE 0 END) FROM FancamInfoDto f LEFT JOIN LikeInfoDto l ON f.fancamidx = l.likeInfoDtoId.fancamidx WHERE f.status='ACTIVE' GROUP BY f.fancamidx")
     List<Object[]> howManyLikesFancam();
 
-    @Query("SELECT f, COUNT(l) FROM FancamInfoDto f LEFT JOIN LikeInfoDto l ON f.fancamidx = l.likeInfoDtoId.fancamidx WHERE f.status='ACTIVE' AND f.fancamidx = :fancamidx GROUP BY f.fancamidx ORDER BY COUNT(l.likeInfoDtoId.fancamidx)")
+    @Query("SELECT f, SUM(CASE WHEN l.status = 'ACTIVE' THEN 1 ELSE 0 END) FROM FancamInfoDto f LEFT JOIN LikeInfoDto l ON f.fancamidx = l.likeInfoDtoId.fancamidx WHERE f.status='ACTIVE' AND f.fancamidx = :fancamidx GROUP BY f.fancamidx")
     List<Object[]> fancamInfo(@Param("fancamidx") Long fancamidx);
 
     @Query("SELECT t.tagName FROM TagInfoDto t JOIN TaggingInfoDto tg ON t.tagIdx = tg.taggingInfoDtoId.tagidx JOIN FancamInfoDto f ON tg.taggingInfoDtoId.fancamidx = f.fancamidx WHERE f.fancamidx = :fancamidx")
