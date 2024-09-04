@@ -1,8 +1,10 @@
 package com.fancam.fancam.user;
 
 import com.fancam.fancam.JwtUtil;
+import com.fancam.fancam.model.FancamInfoDto;
 import com.fancam.fancam.model.UserInfoDto;
 import com.fancam.fancam.model.folder.FolderInfoDto;
+import com.fancam.fancam.model.search.SearchDto;
 import com.fancam.fancam.user.folder.FolderService;
 import com.fancam.fancam.user.foldering.FolderingService;
 import com.fancam.fancam.user.like.LikeService;
@@ -146,6 +148,22 @@ public class UserController {
         return "success";
     }
 
+    @GetMapping("/my/folder/{folderIdx}")
+    public List<SearchDto> getMyFolderFancam(@RequestHeader("Authorization") String token,@PathVariable Long folderIdx){
+        Long userIdx = getUserIdByToken(token);
+        return folderingService.getFolderFancamList(userIdx,folderIdx);
+    }
+
+    @PatchMapping("/my/folder/{folderIdx}/{fancamIdx}")
+    public String inactiveFoldering(@RequestHeader("Authorization") String token,@PathVariable Long fancamIdx,@PathVariable Long folderIdx){
+        Long userIdx = getUserIdByToken(token);
+        if(folderIdx==0){
+            likeService.inactiveLike(fancamIdx,userIdx);
+        }else{
+            folderingService.inactiveFoldering(fancamIdx, folderIdx);
+        }
+        return "success";
+    }
 
     private Long getUserIdByToken(String token) {
         try {
