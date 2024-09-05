@@ -3,10 +3,7 @@ package com.fancam.fancam.search;
 
 import com.fancam.fancam.model.search.SearchDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,6 +26,11 @@ public class SearchController {
     @GetMapping("/{id}")
     public SearchDto findFancamInfo(@PathVariable String id){
         return searchService.findFancamInfoById(id);
+    }
+
+    @GetMapping("/name")
+    public List<SearchDto> findFancamInfoByName(@RequestParam String q){
+        return searchService.findFancamInfoByName(q);
     }
 
 }

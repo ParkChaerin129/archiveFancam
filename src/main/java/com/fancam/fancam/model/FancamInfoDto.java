@@ -13,8 +13,8 @@ import lombok.*;
 @Entity
 public class FancamInfoDto {
 
-    @Column
-    private String Name;
+    @Column(name="Name")
+    private String name;
     @Column
     private String date;
     @Column

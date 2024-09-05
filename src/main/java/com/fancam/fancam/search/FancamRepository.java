@@ -21,4 +21,6 @@ public interface FancamRepository extends JpaRepository<FancamInfoDto,Long> {
     @Query("SELECT t.tagName FROM TagInfoDto t JOIN TaggingInfoDto tg ON t.tagIdx = tg.taggingInfoDtoId.tagidx JOIN FancamInfoDto f ON tg.taggingInfoDtoId.fancamidx = f.fancamidx WHERE f.fancamidx = :fancamidx")
     List<String> findTagNamesByPostId(@Param("fancamidx") Long fancamidx);
 
+    List<FancamInfoDto> findByNameContaining(String namePart);
+
 }

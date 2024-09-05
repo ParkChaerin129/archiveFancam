@@ -24,7 +24,7 @@ public class AdminServiceImpl implements AdminService{
 
 
         FancamInfoDto fancamInfoDto = FancamInfoDto.builder().
-                Name(name).
+                name(name).
                 date(date).
                 member(member).
                 fancam_url(url).

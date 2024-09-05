@@ -103,4 +103,15 @@ public class SearchDao {
         return searchDto;
 
     }
+
+    public List<Long> searchFancamByNamePartFromDB(String name){
+        List<FancamInfoDto> fancamInfoDtoList = fancamRepository.findByNameContaining(name);
+        List<Long> fancamidList = new ArrayList<>();
+        for(FancamInfoDto fancamInfoDto:fancamInfoDtoList){
+            if(fancamInfoDto.getStatus().equals("ACTIVE")){
+                fancamidList.add(fancamInfoDto.getFancamidx());
+            }
+        }
+        return fancamidList;
+    }
 }

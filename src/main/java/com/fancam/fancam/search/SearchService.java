@@ -8,5 +8,5 @@ public interface SearchService {
 
     List<SearchDto> allFancamInfo();
     SearchDto findFancamInfoById(String id);
-
+    List<SearchDto> findFancamInfoByName(String fancamName);
 }

@@ -4,6 +4,7 @@ import com.fancam.fancam.model.search.SearchDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,4 +24,15 @@ public class SearchServiceImpl implements SearchService{
         Long fancamIdx = Long.valueOf(id);
         return searchDao.searchFancamFromDBByFancamIdx(fancamIdx);
     }
+
+    @Override
+    public List<SearchDto> findFancamInfoByName(String fancamName) {
+        List<Long> fancamIdList = searchDao.searchFancamByNamePartFromDB(fancamName);
+        List<SearchDto> searchDtoList = new ArrayList<>();
+        for(final Long id : fancamIdList) {
+            searchDtoList.add(searchDao.searchFancamFromDBByFancamIdx(id));
+        }
+        return searchDtoList;
+    }
+
 }
