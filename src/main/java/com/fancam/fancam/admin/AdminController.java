@@ -2,6 +2,7 @@ package com.fancam.fancam.admin;
 
 
 import com.fancam.fancam.model.FancamInfoDto;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -46,7 +47,8 @@ public class AdminController {
 
         }catch (Exception e){
             e.printStackTrace();
-            return "fail";
+            throw e;
+            //return "fail";
         }
 
         if(flag){
