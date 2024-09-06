@@ -74,13 +74,23 @@ public class UserController {
                 .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
 
-        /*Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(userInfoDto.getEmail(), userInfoDto.getPwd())
-        );
+    }
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        return jwtUtil.generateToken(userInfoDto.getEmail(),userDetails);*/
+    @GetMapping("/auth")
+    public Boolean getAuthorization(@RequestHeader("Authorization") String token) {
+
+        String jwtToken = token.replace("Bearer ", "");
+
+        Claims claims = Jwts.parser()
+                .setSigningKey(secret)  // JWT 서명 검증을 위한 키
+                .parseClaimsJws(jwtToken)  // 토큰 파싱
+                .getBody();             // 페이로드(클레임) 가져오기
+
+        // authorities 클레임에서 권한 리스트 확인
+        List<String> authorities = (List<String>) claims.get("authorities");
+
+        // ADMIN 권한이 있는지 확인
+        return authorities != null && authorities.contains("ROLE_ADMIN");
     }
 
     @PostMapping("/like/{fancamIdx}")
