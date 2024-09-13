@@ -1,6 +1,6 @@
 package com.fancam.fancam;
 
-import com.fancam.fancam.user.like.LikeService;
+import com.fancam.fancam.service.LikeService;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;

@@ -1,7 +1,7 @@
 package com.fancam.fancam;
 
 
-import com.fancam.fancam.user.UserService;
+import com.fancam.fancam.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;

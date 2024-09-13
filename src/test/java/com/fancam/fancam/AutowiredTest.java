@@ -1,10 +1,10 @@
 package com.fancam.fancam;
 
-import com.fancam.fancam.admin.*;
-import com.fancam.fancam.user.UserService;
-import com.fancam.fancam.user.folder.FolderService;
-import com.fancam.fancam.user.foldering.FolderingService;
-import com.fancam.fancam.user.like.LikeService;
+import com.fancam.fancam.service.AdminService;
+import com.fancam.fancam.service.UserService;
+import com.fancam.fancam.service.FolderService;
+import com.fancam.fancam.service.FolderingService;
+import com.fancam.fancam.service.LikeService;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
