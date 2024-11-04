@@ -1,6 +1,7 @@
 package com.fancam.fancam.service;
 
 import com.fancam.fancam.model.search.SearchDto;
+import com.fancam.fancam.model.tag.TagInfoDto;
 import com.fancam.fancam.repositrory.dao.SearchDao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -31,9 +32,33 @@ public class SearchServiceImpl implements SearchService {
         List<Long> fancamIdList = searchDao.searchFancamByNamePartFromDB(fancamName);
         List<SearchDto> searchDtoList = new ArrayList<>();
         for(final Long id : fancamIdList) {
-            searchDtoList.add(searchDao.searchFancamFromDBByFancamIdx(id));
+            SearchDto searchDto = searchDao.searchFancamFromDBByFancamIdx(id);
+            if(searchDto != null) {
+                searchDtoList.add(searchDto);
+            }
         }
         return searchDtoList;
+    }
+
+    @Override
+    public List<SearchDto> findFancamInfoByTag(String tagIdx) {
+        Long tagId = Long.valueOf(tagIdx);
+        List<Long> fancamIdList = searchDao.searchFancamByTagIdx(tagId);
+        List<SearchDto> searchDtoList = new ArrayList<>();
+        for(final Long id : fancamIdList) {
+            SearchDto searchDto = searchDao.searchFancamFromDBByFancamIdx(id);
+            if(searchDto != null) {
+                searchDtoList.add(searchDto);
+            }
+        }
+        return searchDtoList;
+    }
+
+    @Override
+    public List<TagInfoDto> findAllTagInfo() {
+
+
+        return searchDao.searchAllTagInfo();
     }
 
 }

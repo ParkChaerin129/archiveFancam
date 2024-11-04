@@ -2,6 +2,7 @@ package com.fancam.fancam.controller;
 
 
 import com.fancam.fancam.model.search.SearchDto;
+import com.fancam.fancam.model.tag.TagInfoDto;
 import com.fancam.fancam.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +33,16 @@ public class SearchController {
     @GetMapping("/name")
     public List<SearchDto> findFancamInfoByName(@RequestParam String q){
         return searchService.findFancamInfoByName(q);
+    }
+
+    @GetMapping("/tag/{tagIdx}")
+    public List<SearchDto> findFancamInfoByTag(@PathVariable String tagIdx){
+        return searchService.findFancamInfoByTag(tagIdx);
+    }
+
+    @GetMapping("/tag/all")
+    public List<TagInfoDto> findAllTagInfo(){
+        return searchService.findAllTagInfo();
     }
 
 }

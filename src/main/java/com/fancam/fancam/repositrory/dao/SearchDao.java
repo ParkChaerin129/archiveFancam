@@ -3,7 +3,11 @@ package com.fancam.fancam.repositrory.dao;
 
 import com.fancam.fancam.model.FancamInfoDto;
 import com.fancam.fancam.model.search.SearchDto;
+import com.fancam.fancam.model.tag.TagInfoDto;
+import com.fancam.fancam.model.tag.TaggingInfoDto;
 import com.fancam.fancam.repositrory.repository.FancamRepository;
+import com.fancam.fancam.repositrory.repository.TagRepository;
+import com.fancam.fancam.repositrory.repository.TaggingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +19,8 @@ import java.util.List;
 public class SearchDao {
 
     private final FancamRepository fancamRepository;
+    private final TaggingRepository taggingRepository;
+    private final TagRepository tagRepository;
 
     public List<SearchDto> searchAllFancamFromDB(){
 
@@ -114,5 +120,20 @@ public class SearchDao {
             }
         }
         return fancamidList;
+    }
+
+    public List<Long> searchFancamByTagIdx(Long tagIdx){
+        List<TaggingInfoDto> taggingInfoDtoList = taggingRepository.findByTaggingInfoDtoId_Tagidx(tagIdx);
+        List<Long> fancamidList = new ArrayList<>();
+        for(TaggingInfoDto taggingInfoDto:taggingInfoDtoList){
+            if(taggingInfoDto.getStatus().equals("ACTIVE")) {
+                fancamidList.add(taggingInfoDto.getTaggingInfoDtoId().getFancamidx());
+            }
+        }
+        return fancamidList;
+    }
+
+    public List<TagInfoDto> searchAllTagInfo() {
+        return tagRepository.findAllByStatus("ACTIVE");
     }
 }
