@@ -41,9 +41,10 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public List<SearchDto> findFancamInfoByTag(String tagIdx) {
-        Long tagId = Long.valueOf(tagIdx);
-        List<Long> fancamIdList = searchDao.searchFancamByTagIdx(tagId);
+    public List<SearchDto> findFancamInfoByTag(String tagName) {
+
+        Long tagIdx = searchDao.searchTagIdxByTagName(tagName);
+        List<Long> fancamIdList = searchDao.searchFancamByTagIdx(tagIdx);
         List<SearchDto> searchDtoList = new ArrayList<>();
         for(final Long id : fancamIdList) {
             SearchDto searchDto = searchDao.searchFancamFromDBByFancamIdx(id);

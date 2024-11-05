@@ -136,4 +136,16 @@ public class SearchDao {
     public List<TagInfoDto> searchAllTagInfo() {
         return tagRepository.findAllByStatus("ACTIVE");
     }
+
+    public Long searchTagIdxByTagName(String tagName) {
+
+        TagInfoDto tagInfoDto = tagRepository.findTagInfoDtoByTagName(tagName);
+        if(tagInfoDto==null){
+            return null;
+        }
+        if(tagInfoDto.getStatus().equals("ACTIVE")) {
+            return tagInfoDto.getTagIdx();
+        }
+        return null;
+    }
 }

@@ -35,9 +35,9 @@ public class SearchController {
         return searchService.findFancamInfoByName(q);
     }
 
-    @GetMapping("/tag/{tagIdx}")
-    public List<SearchDto> findFancamInfoByTag(@PathVariable String tagIdx){
-        return searchService.findFancamInfoByTag(tagIdx);
+    @GetMapping("/tag/{tagName}")
+    public List<SearchDto> findFancamInfoByTag(@PathVariable String tagName){
+        return searchService.findFancamInfoByTag(tagName);
     }
 
     @GetMapping("/tag/all")

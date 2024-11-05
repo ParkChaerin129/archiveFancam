@@ -13,4 +13,5 @@ public interface TagRepository extends JpaRepository<TagInfoDto,Long> {
 
     List<TagInfoDto> findAllByStatus(String status);
 
+    TagInfoDto findTagInfoDtoByTagName(String tagName);
 }
