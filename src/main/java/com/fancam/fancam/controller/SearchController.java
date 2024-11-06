@@ -45,4 +45,9 @@ public class SearchController {
         return searchService.findAllTagInfo();
     }
 
+    @GetMapping("/date/{date}")
+    public List<SearchDto> findFancamInfoByDate(@PathVariable String date){
+        return searchService.findFancamInfoByDate(date);
+    }
+
 }

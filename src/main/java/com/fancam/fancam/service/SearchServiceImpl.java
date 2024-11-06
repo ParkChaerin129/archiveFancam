@@ -62,4 +62,18 @@ public class SearchServiceImpl implements SearchService {
         return searchDao.searchAllTagInfo();
     }
 
+    @Override
+    public List<SearchDto> findFancamInfoByDate(String date) {
+
+        List<Long> fancamIdList = searchDao.searchFancamByDateFromDB(date);
+        List<SearchDto> searchDtoList = new ArrayList<>();
+        for(final Long id : fancamIdList) {
+            SearchDto searchDto = searchDao.searchFancamFromDBByFancamIdx(id);
+            if(searchDto != null) {
+                searchDtoList.add(searchDto);
+            }
+        }
+        return searchDtoList;
+    }
+
 }

@@ -14,4 +14,6 @@ public interface SearchService {
     List<SearchDto> findFancamInfoByTag(String tagIdx);
 
     List<TagInfoDto> findAllTagInfo();
+
+    List<SearchDto> findFancamInfoByDate(String date);
 }

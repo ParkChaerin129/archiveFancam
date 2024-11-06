@@ -148,4 +148,15 @@ public class SearchDao {
         }
         return null;
     }
+
+    public List<Long> searchFancamByDateFromDB(String date) {
+        List<FancamInfoDto> fancamInfoDtoList = fancamRepository.findByDateContaining(date);
+        List<Long> fancamidList = new ArrayList<>();
+        for(FancamInfoDto fancamInfoDto:fancamInfoDtoList){
+            if(fancamInfoDto.getStatus().equals("ACTIVE")) {
+                fancamidList.add(fancamInfoDto.getFancamidx());
+            }
+        }
+        return fancamidList;
+    }
 }

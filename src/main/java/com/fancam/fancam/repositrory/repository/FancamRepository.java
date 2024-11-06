@@ -21,4 +21,5 @@ public interface FancamRepository extends JpaRepository<FancamInfoDto,Long> {
 
     List<FancamInfoDto> findByNameContaining(String namePart);
 
+    List<FancamInfoDto> findByDateContaining(String date);
 }
